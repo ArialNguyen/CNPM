@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <title>Upate_Delete</title>
+    <style>
+        body {
+            font-family: 'Times New Roman';
+            background-color: rgb(64, 138, 87);
+        }
+
+        .details {
+            margin: auto;
+            color: black;
+            background-color: rgb(255, 255, 255);
+            border-radius: 20px;
+            box-shadow: 2px 2px #1d612979;
+            text-align: center;
+            margin-top: 5%;
+        }
+
+
+        .card-text::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            background-color: #F5F5F5;
+        }
+
+        .card-text::-webkit-scrollbar {
+            width: 5px;
+            background-color: #F5F5F5;
+        }
+
+        .card-text::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #555;
+        }
+
+        img {
+            width: 100%;
+            height: 50%;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .image_icon {
+            height: 30%;
+            width: 60%;
+
+        }
+
+        .row-col-3 {
+            height: 100vh;
+            width: 90%;
+        }
+
+        .card {
+            height: 47%;
+            margin-top: 4%;
+            background-color: rgb(64, 138, 87);
+        }
+
+        .card-body {
+            height: 50%;
+        }
+
+        .card-title {
+            line-height: 1rem;
+        }
+
+        .card-text {
+            height: 60%;
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+
+        .card-body a {
+            line-height: 1rem;
+            margin-right: 3%;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container-fluid">
+        <div class="row g-0" id="list">
+            <div class="col-3" style="height: 100vh;" id="col-3-icon">
+                <!-- h-70, w-65 -->
+                <a href="Index.html" class="btn btn-warning mt-3"><i class="bi bi-skip-backward-fill"></i> Back to
+                    Home </a> <br>
+                <h3 style="margin-top: 5%;"><b><i>Manage Medician Tree</i></b></h3>
+                <img src="https://cdn-icons-png.flaticon.com/512/2973/2973419.png" alt="Manage" class="image_icon"
+                    style="margin-top: 5%;">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <button class="details nav-link active" data-bs-toggle="modal" data-bs-target="#modal-add"
+                            style="width: 40%;margin-bottom: 5%;">Add</button>
+                    </li>
+                    <li class="nav-item">
+                        <div class="form-group position-relative mt-4">
+                            <i class="bi bi-search icon position-absolute top-50 start-100 translate-middle"
+                                style="right: -15%;"></i>
+                            <input type="text" name="search" id="search" class="form-control text-center"
+                                placeholder="Find items to update and delete" style="border-radius: 20px;">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="modal-add" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="row g-0">
+                    <div class="col-5">
+                        <img src="https://i.pinimg.com/564x/84/1d/6d/841d6db630578a130bcfdb2510ad62a3.jpg"
+                            alt="login form" class="img-fluid" style="border-top-left-radius: 8px ;height: 100%;">
+                    </div>
+                    <div class="col-7">
+                        <form class="p-3" method="post" enctype="multipart/form-data">
+                            <h4 class="fw-bold mb-4">Thêm thông tin cây thuốc mới</h4>
+
+                            <div class="form-group">
+                                <label class="form-label" for="fileUpload">Hình ảnh</label>
+                                <input type="file" class="form-control" name="fileUpload" id="fileUpload">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="name">Tên cây thuốc:</label>
+                                <input type="text" id="name" name="name" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="name_scn">Tên khoa học:</label>
+                                <input type="text" id="name_scn" name="name_scn" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="describe">Mô tả:</label>
+                                <textarea id="describe" name="describe" class="form-control"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="where">Phân bố:</label>
+                                <textarea id="where" name="where" class="form-control"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="congDung">Công Dụng:</label>
+                                <textarea id="congDung" name="congDung" class="form-control"></textarea>
+                            </div>
+
+                            <div class="form-group text-end mt-3">
+                                <button type="submit" class="btn btn-primary" id="btn_Add"
+                                    onclick="return check_Valid_Trans()">Add</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                                <button type="reset" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Update -->
+    <div class="modal fade" id="modal-update" role="dialog">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="row g-0">
+                    <div class="col-5">
+                        <img src="https://i.pinimg.com/564x/84/1d/6d/841d6db630578a130bcfdb2510ad62a3.jpg"
+                            alt="login form" class="img-fluid" style="border-top-left-radius: 8px ;height: 100%;"
+                            id="img_modal_update">
+                    </div>
+                    <div class="col-7">
+                        <form class="p-3" method="post" enctype="multipart/form-data">
+                            <h4 class="fw-bold mb-4">Cập nhật thông tin cây thuốc mới</h4>
+
+                            <div class="form-group">
+                                <label class="form-label" for="update_fileUpload">Hình ảnh</label>
+                                <input type="file" class="form-control" name="update_fileUpload" id="update_fileUpload">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="update_name">Tên cây thuốc:</label>
+                                <input type="text" id="update_name" name="update_name" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="update_name_scn">Tên khoa học:</label>
+                                <input type="text" id="update_name_scn" name="update_name_scn" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="update_describe">Mô tả:</label>
+                                <textarea id="update_describe" name="update_describe" class="form-control"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="update_where">Phân bố:</label>
+                                <textarea id="update_where" name="update_where" class="form-control"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="update_congDung">Công Dụng:</label>
+                                <textarea id="update_congDung" name="update_congDung" class="form-control"></textarea>
+                            </div>
+
+                            <div class="form-group text-end mt-3">
+                                <button type="submit" class="btn btn-primary" id="btn_update">Update</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                                <button type="reset" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Delete -->
+    <div id="modal-delete" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered text-center">
+            <div class="modal-content">
+                <div class="modal-header flex-column">
+                    <button type="button" class="close float-end btn-close" data-bs-dismiss="modal">&times;</button>
+                    <i class="bi bi-x-circle" style="color: red;font-size: 100px;"></i>
+
+                    <h4 class="modal-title w-100">Are you sure?</h4>
+
+                </div>
+                <div class="modal-body">
+                    <p>Do you really want to delete this Tree?</p>
+                    <h3 class="ten_cay_delete"></h3>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-danger btn_delete">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="modal fade" id="modal-delete" role="dialog">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content" style="height: 100%;">
+                <div class="modal-header">
+                    <h5 class="modal-title"><b>Are you sure to delete</b></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://i.pinimg.com/564x/84/1d/6d/841d6db630578a130bcfdb2510ad62a3.jpg" 
+                        class="img-fluid" style="border-top-left-radius: 8px ;">
+                </div>
+                
+            </div>
+        </div>
+    </div> -->
+    <!--    1col - 2 card
+            xcol - n card  -> x = n/2 col
+                            1: old -> n/2 + 1 col
+                            2: even -> n/2 col  -->
+
+    <script>
+        function load_items(listCard) {
+            const ls = JSON.parse(listCard);
+            let num_card = ls.length;
+            let index_each_card = 0;
+            col = (num_card / 2) % 2 == 0 ? num_card / 2 : parseInt(num_card / 2) + 1; // 3 card -> col = 2
+            col = (num_card == 2) ? 1 : col;
+            var parent = document.getElementById("list");
+            for (let i = 0; i < col; i++) {
+                let col3 = document.createElement("div");
+                col3.className = "col-3";
+                parent.appendChild(col3);
+                let row = document.createElement("div");
+                row.className = "row ms-auto me-0 row-col-3";
+                col3.appendChild(row);
+                for (let j = 1; j <= 2; j++) {
+                    if (index_each_card < num_card) {
+                        let card = document.createElement("div");
+                        card.className = "card col-12 border-0";
+                        row.appendChild(card);
+                        let img = document.createElement("img");
+                        img.src = ls[index_each_card][6];
+                        card.appendChild(img);
+                        let card_body = document.createElement("div");
+                        card_body.className = "card-body text-start border bg-light rounded-bottom";
+                        card.appendChild(card_body);
+                        let id_hidden = document.createElement("div");
+                        id_hidden.className = "id d-none";
+                        id_hidden.innerText = ls[index_each_card][0];
+                        card_body.append(id_hidden);
+                        let card_title = document.createElement("h5");
+                        card_title.className = "card-title";
+                        card_title.innerHTML = "<b>" + ls[index_each_card][1] + "</b>";
+                        card_body.appendChild(card_title);
+                        let ten_kh = document.createElement("div");
+                        ten_kh.className = "ten-kh d-none";
+                        ten_kh.innerText = ls[index_each_card][2];
+                        card_body.append(ten_kh);
+                        let card_text = document.createElement("p");
+                        card_text.className = "card-text";
+                        card_text.innerText = ls[index_each_card][3].substring(0, 200) + "...";
+                        card_body.appendChild(card_text);
+
+                        let where = document.createElement("div");
+                        where.className = "where d-none";
+                        where.innerText = ls[index_each_card][4];
+                        card_body.append(where);
+
+                        let congDung = document.createElement("div");
+                        congDung.className = "congDung d-none";
+                        congDung.innerText = ls[index_each_card][5];
+                        card_body.append(congDung);
+
+
+                        let btn_go = document.createElement("a");
+                        btn_go.className = "btn btn-primary item-go";
+                        btn_go.innerText = "Go";
+                        btn_go.onclick = function () {
+                            getDetails(this);
+                        };
+                        card_body.appendChild(btn_go);
+
+                        let btn_update = document.createElement("a");
+                        btn_update.className = "btn btn-warning item-update";
+                        btn_update.innerText = "Update";
+                        btn_update.onclick = function () {
+                            updateTree(this);
+                        }
+                        card_body.appendChild(btn_update);
+
+                        let btn_delete = document.createElement("a");
+                        btn_delete.className = "btn btn-danger item-delete";
+                        btn_delete.innerText = "Delete";
+                        btn_delete.onclick = function () {
+                            deleteTree(this);
+                        }
+                        card_body.appendChild(btn_delete);
+                        index_each_card++;
+                    }
+                }
+            }
+        }
+
+        $.ajax({
+            url: "php/ManageTree/get_tree.php",
+            type: "GET",
+            success: function (listCard) {
+                load_items(listCard);
+            }
+        });
+
+        function check_Valid_Trans() {
+            if ($("#name").val() == "") {
+                alert("Please fill on the name");
+                return false;
+            }
+            if (document.getElementById("fileUpload").files.length == 0) {
+                alert("Please enter file to Upload");
+                return false;
+            }
+            var formData = new FormData();
+            formData.append("fileUpload", $('#fileUpload').get(0).files[0]);
+            formData.append("name", $("#name").val());
+            formData.append("name_scn", $("#name_scn").val());
+            formData.append("describe", $("#describe").val());
+            formData.append("where", $("#where").val());
+            formData.append("congDung", $("#congDung").val());
+            $.ajax({
+                url: "php/ManageTree/Add_tree.php",
+                type: "post",
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (data) {
+                    alert(data);
+                }
+            });
+            return true;
+        }
+
+        $(document).ready(function () {
+            $("#search").keypress(function (event) {
+                if (event.key == "Enter" || event.keyCode == 13) {
+                    if ($("#search").val() == "") {
+                        alert("Please Enter Medician Tree to Find!");
+                    } else {
+                        $.ajax({
+                            url: "php/ManageTree/find_some_tree.php",
+                            type: "POST",
+                            data: { search: $("#search").val() },
+                            success: function (listCard) {
+                                while (document.getElementById("list").children.length > 1) {
+                                    document.getElementById("list").removeChild(document.getElementById("list").lastElementChild);
+                                }
+                                load_items(listCard);
+                            }
+                        });
+                    }
+                }
+            });
+        });
+        function deleteTree(x) {
+            $("#modal-delete").modal('show');
+            $(".ten_cay_delete").text(x.parentElement.children[1].innerText);
+            var element = x.parentElement;
+            $(".btn_delete").off("click");
+            $(".btn_delete").click(function (event) {
+                $.ajax({
+                    url: "php/ManageTree/delete_tree.php",
+                    type: "POST",
+                    data: { id: element.children[0].innerText, name: element.children[1].innerText },
+                    success: function (data) {
+                        location.reload();
+                        alert(data);
+                    }
+                });
+            });
+        }
+        function updateTree(x) {
+            var element = x.parentElement; // card-body
+            $("#modal-update").modal('show');
+            // Load image from db because src img not supported unicode -> %%
+            var img = x.parentElement.parentElement.children[0].src;
+            // load image
+            $("#img_modal_update").attr("src", img.substring(img.lastIndexOf("Uploads")));
+            // fill on in4
+            $("#update_name").val(x.parentElement.children[1].innerText);
+            $("#update_name_scn").val(x.parentElement.children[2].innerText);
+            $("#update_describe").val(x.parentElement.children[3].innerText);
+            $("#update_where").val(x.parentElement.children[4].innerText);
+            $("#update_congDung").val(x.parentElement.children[5].innerText);
+
+            $("#btn_update").off("click");
+            $("#btn_update").click(function (event) {
+                if ($("#update_name").val() == "") {
+                    alert("You must fill on the name");
+                    event.preventDefault()
+                } else if ($("#update_name_scn").val() == "") {
+                    alert("You must fill on the name science");
+                    event.preventDefault()
+                }
+                else {
+                    //create FormData
+                    var formData = new FormData();
+                    formData.append("id", element.children[0].innerText);
+                    formData.append("update_fileUpload", img.substring(img.lastIndexOf("Uploads")));
+                    formData.append("update_name", $("#update_name").val());
+                    formData.append("update_name_scn", $("#update_name_scn").val());
+                    formData.append("update_describe", $("#update_describe").val());
+                    formData.append("update_where", $("#update_where").val());
+                    formData.append("update_congDung", $("#update_congDung").val());
+                    $.ajax({
+                        url: "php/ManageTree/update_tree.php",
+                        type: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            alert(data);
+                        }
+                    });
+                }
+            });
+        }
+        function getDetails(x) {
+            $(x).attr("href", "php/ManageTree/one_tree_details.php?id=" + x.parentElement.children[0].innerText);
+        }
+    </script>
+</body>
+
+</html>

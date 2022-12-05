@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/37953f48ea.js" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <style>
+        html,
+        body {
+            margin-top: 3%;
+        }
+
+        body {
+            text-align: center;
+            background-color: #6095F0;
+        }
+
+        tr>td:nth-child(2) {
+            max-width: 100px;
+        }
+
+        img {
+            height: 130px;
+            width: 60%
+        }
+
+        .btn_back {
+            background-image: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
+            cursor: pointer;
+            height: 45px;
+            width: 100px;
+            font-family: Phantomsans, sans-serif;
+            color: #FFFFFF;
+            box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+            border-radius: 10px;    
+        }
+    </style>
+
+    <header>
+
+</head>
+
+
+<body>
+    <header>
+        <div class="container-fluid product-View">
+            <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+                <div class="container-fluid">
+                    <a class="btn btn_back" onclick="history.back()"><i class="bi bi-arrow-left-circle-fill"></i> Back
+                    </a>
+                    <ul class="navbar-nav ms-auto mt-3">
+                        <li class="nav-item">
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-heart-fill me-3"></i>
+                        </li>
+                        <p class="me-3">FAVORITE LIST</p>
+                        <li class="nav-item">
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-heart-fill"></i>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link me-4" href="Index.html">
+                                <i class="fas fa-home"></i> Home
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+    </header>
+
+
+    <div class="container">
+        <div class="card " style="background-color: #f5f7fa;">
+            <div class="card-body">
+                <table class="table table-border ">
+                    <thead>
+                        <tr>
+                            <th scope="col">Stt</th>
+                            <th scope="col">Ảnh</th>
+                            <th scope="col">Tên</th>
+                            <th scope="col">Truy cập</th>
+                            <th scope="col">Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list_cay">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        function delete_basket(x) {
+            $.ajax({
+                url: "php/Basket/delete.php",
+                type: "POST",
+                data: { id: x },
+                success: function (data) {
+                    alert(data);
+                    location.reload();
+                }
+            });
+        }
+
+        $.ajax({
+            url: "php/Basket/get_basket.php",
+            type: "GET",
+            success: function (data) {
+                var t_body = document.getElementById("list_cay");
+                for (let x of data.split(",")) {
+                    var stt = 1;
+                    $.ajax({
+                        url: "php/ManageTree/find_tree.php",
+                        type: "POST",
+                        data: { id: x },
+                        success: function (data) {
+                            const ls = JSON.parse(data);
+                            let tr = document.createElement("tr");
+                            t_body.appendChild(tr);
+
+                            let td_stt = document.createElement("td");
+                            td_stt.innerText = stt++;
+                            tr.appendChild(td_stt);
+
+                            let td_img = document.createElement("img");
+                            td_img.src = ls[6];
+                            tr.appendChild(td_img);
+
+                            let td_ten = document.createElement("td");
+                            td_ten.innerText = ls[1];
+                            tr.appendChild(td_ten);
+
+                            let td_access = document.createElement("td");
+                            let a_access = document.createElement("a");
+                            a_access.className = "btn btn-primary btn-sm px-3";
+                            a_access.href = "php/ManageTree/one_tree_details.php?id=" + ls[0];
+                            let icon_access = document.createElement("i");
+                            icon_access.className = "bi bi-arrow-right-circle";
+                            a_access.appendChild(icon_access);
+                            td_access.appendChild(a_access);
+                            tr.appendChild(td_access);
+
+                            let td_delete = document.createElement("td");
+                            let btn_delete = document.createElement("button");
+                            btn_delete.className = "btn btn-danger btn-sm px-3";
+                            btn_delete.onclick = function () {
+                                delete_basket(ls[0]);
+                            }
+                            let icon_delete = document.createElement("i");
+                            icon_delete.className = "bi bi-trash3";
+                            btn_delete.appendChild(icon_delete);
+                            td_delete.appendChild(btn_delete);
+                            tr.appendChild(td_delete);
+
+
+                        }
+                    });
+                }
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>

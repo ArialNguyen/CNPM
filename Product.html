@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/37953f48ea.js" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <style>
+        .product-View {
+            background: url('https://coolbackgrounds.io/images/backgrounds/index/ranger-4df6c1b6.png') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+        }
+
+        body {
+            background-color: #fbfbfb;
+        }
+
+        @media (min-width: 991.98px) {
+            main {
+                padding-left: 240px;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            padding: 58px 0 0;
+            /* Height of navbar */
+            box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+            width: 240px;
+            z-index: 600;
+        }
+
+        @media (max-width: 991.98px) {
+            .sidebar {
+                width: 100%;
+            }
+        }
+
+        .sidebar .active {
+            border-radius: 5px;
+            box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+        }
+
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: 0.5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .card {
+            height: 100%;
+            width: 93%;
+            border-radius: 20px;
+            border: #555 solid 1px;
+            box-shadow: 5px 10px 8px #888888;
+        }
+
+        .card>img {
+            height: 50%;
+            width: 100%;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .card-body {
+            height: 50%;
+            background-color: rgb(64, 138, 87);
+            border-radius: 0px 0px 15px 15px;
+            color: white;
+        }
+
+        .card-body>a {
+            line-height: 1rem;
+        }
+
+        .card-title {
+            line-height: 1rem;
+        }
+
+        .card-text {
+            height: 60%;
+            overflow: scroll;
+            overflow-x: hidden;
+            text-align: justify;
+        }
+
+        .card-text::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            background-color: rgb(64, 138, 87);
+        }
+
+        .card-text::-webkit-scrollbar {
+            width: 5px;
+            background-color: rgb(64, 138, 87);
+        }
+
+        .card-text::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: white;
+
+        }
+
+        .list_row,
+        .list_row>.col-3 {
+            height: 50vh;
+        }
+
+        .btn_back {
+            background-image: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
+            cursor: pointer;
+            height: 45px;
+            width: 100px;
+            font-family: Phantomsans, sans-serif;
+            color: #FFFFFF;
+            box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+            border-radius: 10px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <div class="container-fluid product-View">
+        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+            <div class="container-fluid">
+                <a class="btn btn_back" onclick="window.location.href='Index.html'"><i class="bi bi-arrow-left-circle-fill"></i> Back
+                </a>
+                <form class="d-none d-md-flex input-group w-auto my-auto me-0 ms-auto">
+                    <input type="text" class="form-control rounded" placeholder='Search' id="search"
+                        style="min-width: 300px" />
+                    <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+
+                </form>
+
+                <ul class="navbar-nav ms-auto d-flex flex-row">
+                    <li class="nav-item">
+                        <a class="nav-link me-4" href="Cart.html">
+                            <i class="bi bi-bag-check-fill"></i> Basket
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link me-4" href="Index.html">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="row" style="margin-top: 4%;">
+            <div class="col-2" style="height: 100vh;">
+                <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+                    <div class="list-group list-group-flush mx-3 mt-4">
+                        <p>Tìm kiếm theo</p>
+                        <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+                            onclick="load(this, 'Cây thuốc')">
+                            <i class="fa-sharp fa-solid fa-leaf me-3"></i>Cây thuốc <span id="sum_tree"
+                                style="font-size:x-small">(30)</span></a>
+                        <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+                            onclick="load(this, 'Bệnh')">
+                            <i class="fas fa-head-side-cough me-3"></i>Bệnh <span id="sum_sick"
+                                style="font-size:x-small">30</span></a>
+                    </div>
+
+                </nav>
+            </div>
+            <div class="col-10" id="list_items">
+            </div>
+        </div>
+    </div>
+    <script>
+        function addToBasket(x) {
+            $.ajax({
+                url: "php/Basket/addTreeToBasket.php",
+                type: "post",
+                data: { id_tree: x.parentElement.children[0].innerText },
+                success: function (data) {
+                    alert(data);
+                }
+            });
+        }
+        function load_items(list_card) {
+            const ls = JSON.parse(list_card);
+            let num_card = ls.length;
+            let index_each_card = 0;
+            row = (num_card) % 4 == 0 ? num_card / 4 : parseInt(num_card / 4) + 1; // 3 card -> col = 2
+            var parent = document.getElementById("list_items");
+            for (let i = 0; i < row; i++) {
+                let row = document.createElement("div");
+                row.className = "row list_row mt-3";
+                parent.appendChild(row);
+                for (let j = 1; j <= 4; j++) {
+                    if (index_each_card < num_card) {
+                        let col_3 = document.createElement("div");
+                        col_3.className = "col-3";
+                        row.appendChild(col_3);
+                        let card = document.createElement("div");
+                        card.className = "card";
+                        col_3.appendChild(card);
+                        let img = document.createElement("img");
+                        if (ls[index_each_card].length == 7) {
+                            img.src = ls[index_each_card][6];
+                        } else {
+                            img.src = ls[index_each_card][4];
+                        }
+                        card.appendChild(img);
+                        let card_body = document.createElement("div");
+                        card_body.className = "card-body text-start";
+                        card.appendChild(card_body);
+                        let id_hidden = document.createElement("div");
+                        id_hidden.className = "d-none";
+                        id_hidden.innerText = ls[index_each_card][0];
+
+                        card_body.appendChild(id_hidden);
+
+                        let card_title = document.createElement("h5");
+                        card_title.className = "card-title";
+                        card_title.innerText = ls[index_each_card][1];
+                        card_body.appendChild(card_title);
+
+                        let card_text = document.createElement("p");
+                        card_text.className = "card-text";
+                        if (ls[index_each_card].length == 7) {
+                            card_text.innerText = ls[index_each_card][3].substring(0, 200) + "...";
+                        } else {
+                            card_text.innerText = ls[index_each_card][2].substring(0, 200) + "...";
+                        }
+                        card_body.appendChild(card_text);
+
+                        let btn_go = document.createElement("a");
+                        btn_go.className = "btn btn-primary";
+                        // onclick
+                        btn_go.innerText = "View Details";
+                        if (ls[index_each_card].length == 5) {
+                            btn_go.onclick = function () {
+                                go(this, "Bệnh");
+                            }
+                        } else {
+                            btn_go.onclick = function () {
+                                go(this, "Cây thuốc");
+                            }
+                        }
+                        card_body.appendChild(btn_go);
+                        if (ls[index_each_card].length == 7) {
+                            let btn_addToCart = document.createElement("a");
+                            btn_addToCart.className = "btn btn-warning";
+                            btn_addToCart.innerText = "Add to Basket";
+                            btn_addToCart.style.width = "fit-content";
+                            btn_addToCart.onclick = function () {
+                                addToBasket(this);
+                            }
+                            card_body.appendChild(btn_addToCart);
+                        }
+                        index_each_card++;
+                    }
+                }
+            }
+        }
+        function go(x, type) {
+            if (type == "Bệnh") {
+                x.href = "php/ManageDisease/one_sick_details.php?id=" + x.parentElement.children[0].innerText;
+            } else {
+                x.href = "php/ManageTree/one_tree_details.php?id=" + x.parentElement.children[0].innerText;
+            }
+        }
+        $.ajax({
+            url: "php/ManageTree/get_tree.php",
+            type: "GET",
+            success: function (data) {
+                $("#sum_tree").text("(" + JSON.parse(data).length + ")");
+                load_items(data);
+            }
+        });
+        $.ajax({
+            url: "php/ManageDisease/get_disease.php",
+            type: "GET",
+            success: function (data) {
+                $("#sum_sick").text("(" + JSON.parse(data).length + ")");
+            }
+        });
+
+        function load(x, a) {
+            if (a == "Cây thuốc") {
+                $.ajax({
+                    url: "php/ManageTree/get_tree.php",
+                    type: "GET",
+                    success: function (data) {
+                        resetAllItems();
+                        load_items(data, "Cây thuốc");
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: "php/ManageDisease/get_disease.php",
+                    type: "GET",
+                    success: function (data) {
+                        resetAllItems();
+                        load_items(data, "Bệnh");
+                    }
+                });
+            }
+        }
+        function resetAllItems() {
+            while (document.getElementById("list_items").children.length > 0) {
+                document.getElementById("list_items").removeChild(document.getElementById("list_items").lastElementChild);
+            }
+        }
+        $(document).ready(function () {
+            $("#search").keyup(function (event) {
+
+                if ($("#search").val() == "") {
+                    resetAllItems();
+                    $.ajax({
+                        url: "php/ManageTree/find_some_tree.php",
+                        type: "POST",
+                        data: { search: $("#search").val() },
+                        success: function (listCard) {
+                            load_items(listCard);
+                        }
+                    });
+                }
+
+                if (event.key === "Enter" || event.keyCode === 13) {
+                    if ($("#search").val() == "") {
+                        alert("Please Enter Information to Find!");
+                    } else {
+                        var list = "[";
+                        $.ajax({
+                            url: "php/ManageTree/find_some_tree.php",
+                            type: "POST",
+                            data: { search: $("#search").val() },
+                            success: function (listCard) {
+                                if (listCard != "Medician Tree not found!") {
+                                    check_cay = true;
+                                    for (let x of JSON.parse(listCard)) {
+                                        list += JSON.stringify(x) + ",";
+                                    }
+                                }
+                                $.ajax({
+                                    url: "php/ManageDisease/find_some_disease.php",
+                                    type: "POST",
+                                    data: { search: $("#search").val() },
+                                    success: function (listCard) {
+                                        if (listCard != "Sick not found!") {
+                                            check_benh = true;
+                                            for (let x of JSON.parse(listCard)) {
+                                                list += JSON.stringify(x) + ",";
+                                            }
+                                        }
+                                        list = list.slice(0, -1);
+                                        list += "]";
+                                        resetAllItems();
+                                        load_items(list);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>

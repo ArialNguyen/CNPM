@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: rgb(64, 138, 87);
+            box-sizing: border-box;
+        }
+
+
+
+
+
+        .card-text::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            background-color: #F5F5F5;
+        }
+
+        .card-text::-webkit-scrollbar {
+            width: 5px;
+            background-color: #F5F5F5;
+        }
+
+        .card-text::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #555;
+        }
+
+        .card {
+            height: 100%;
+            background-color: rgb(64, 138, 87);
+            width: 90%;
+            margin: auto;
+        }
+
+        .card-body {
+            height: 50%;
+        }
+
+        .card-title {
+            line-height: 1rem;
+        }
+
+        .card-text {
+            height: 60%;
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+
+        .card-body a {
+            line-height: 1rem;
+            margin-right: 3%;
+        }
+
+        .main-card {
+            height: 50vh;
+        }
+
+        .main-card>div {
+            height: 90%;
+        }
+
+        .card img {
+            width: 100%;
+            height: 50%;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .moTa {
+            height: 30px;
+            width: 60px;
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 50%;
+            padding: 3px;
+            top: -15px;
+            background-color: white;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid position-relative">
+        <a href="../../Manage_Disease.html" class="btn btn-warning back-home position-absolute mt-3">
+            Back to Manage Disease
+        </a>
+
+        <div class="row" style="height: 100vh;">
+            <div class="col-6 mx-auto bg-light  mt-5 mb-5 over position-relative" style="border-radius:10px;">
+                <div class="row">
+                    <div class="col-12 mt-3">
+                        <h3 class="text-center"><b><i>Thêm Bệnh</i></b></h3>
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="fileUpload">Hình ảnh</label>
+                                    <input type="file" class="form-control" name="fileUpload" id="fileUpload"
+                                        title="adadada">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="name">Tên bệnh:</label>
+                                    <input type="text" name="name" id="name" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <div class="form-group position-relative">
+                                    <label class="form-label position-absolute moTa" for="describe">Mô tả</label>
+                                    <textarea name="describe" id="describe" rows="2" style="width:100%"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <table class="table table-striped text-start">
+                            <thead>
+                                <tr>
+                                    <th><i style="font-size:small">Tree</i></th>
+                                    <th colspan="3">
+                                        <div class="position-relative ms-auto me-0" style="width:50%;">
+                                            <input type="text" name="search" id="search" placeholder="Search here"
+                                                style="border-radius: 10px;width:100%" class="text-center">
+                                            <i class="bi bi-search position-absolute top-50 start-100 translate-middle"
+                                                style="padding-right: 20%"></i>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr class="mt-1">
+                                    <th style="width:10%">Stt</th>
+                                    <th style="width:10%">Image</th>
+                                    <th style="width:50%">Tên tiếng việt</th>
+                                    <th style="width:10%">Action</th>
+                                    <!-- -->
+                                </tr>
+                            </thead>
+                            <tbody id="list_benh">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <button type="submit" class=" btn btn-warning position-absolute bottom-0 end-0"
+                    style="margin-bottom: 10px;margin-right: 10px;" onclick="send()">Add Items</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="container-fluid" id="list">
+    </div>
+    <script>
+        function load_items(listCard) {
+            const ls = JSON.parse(listCard);
+            let num_card = ls.length;
+            let index_each_card = 0;
+            row = (num_card) % 4 == 0 ? parseInt(num_card / 4) : parseInt(num_card / 4) + 1; // 3 card -> col = 2
+            var parent = document.getElementById("list");
+            for (let i = 0; i < row; i++) {
+                let row = document.createElement("div");
+                row.className = "row main-card";
+                parent.appendChild(row);
+                for (let j = 1; j <= 4; j++) {
+                    if (index_each_card < num_card) {
+                        let col_3 = document.createElement("div");
+                        col_3.className = "col-3";
+                        row.appendChild(col_3);
+                        let card = document.createElement("div");
+                        card.className = "card mt-4";
+                        col_3.appendChild(card);
+                        let img = document.createElement("img");
+                        img.src = "../../" + ls[index_each_card][6];
+                        card.appendChild(img);
+                        let card_body = document.createElement("div");
+                        card_body.className = "card-body text-start border bg-light rounded-bottom";
+                        card.appendChild(card_body);
+                        let id_hidden = document.createElement("div");
+                        id_hidden.className = "id d-none";
+                        id_hidden.innerText = ls[index_each_card][0];
+                        card_body.append(id_hidden);
+                        let card_title = document.createElement("h5");
+                        card_title.className = "card-title";
+                        card_title.innerHTML = "<b>" + ls[index_each_card][1] + "</b>";
+
+                        card_body.appendChild(card_title);
+
+                        let card_text = document.createElement("div");
+                        card_text.className = "card-text";
+                        card_text.innerText = ls[index_each_card][3].substring(0, 200) + "...";
+                        card_body.appendChild(card_text);
+
+                        let btn_add = document.createElement("a");
+                        btn_add.className = "btn btn-primary mt-2";
+                        btn_add.innerText = "Add";
+                        btn_add.href = "#";
+                        btn_add.onclick = function () {
+                            addToList(this);
+                        };
+                        card_body.appendChild(btn_add);
+                        index_each_card++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+        function resetAllItems() {
+            $.ajax({
+                url: "../ManageTree/get_tree.php",
+                type: "GET",
+                success: function (listCard) {
+                    while (document.getElementById("list").children.length > 0) {
+                        document.getElementById("list").removeChild(document.getElementById("list").lastElementChild);
+                    }
+                    load_items(listCard);
+                }
+            });
+        }
+        function send() {
+            if ($("#name").val() == "") {
+                alert("Please Enter Name");
+            } else if (document.getElementById("list_benh").children.length == 0) {
+                alert("Please chose at least one Sick to Add");
+            } else if (document.getElementById("fileUpload").files.length == 0) {
+                alert("PLease Upload image");
+            } else if ($("#describe").val() == "") {
+                alert("PLease fill some Describe");
+            } else {
+                let str_id = "";
+                for (const element of document.getElementById("list_benh").children) {
+                    str_id += element.children[0].innerText + ","
+                }
+                str_id = str_id.slice(0, str_id.length - 1);
+                var formData = new FormData();
+                formData.append("str_id", str_id);
+                formData.append("name", $("#name").val());
+                formData.append("fileUpload", $("#fileUpload").get(0).files[0]);
+                formData.append("describe", $("#describe").val());
+                $.ajax({
+                    url: "add.php",
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (data) {
+                        alert(data);
+                        window.location.href = "../../Manage_Disease.html";
+                    }
+                });
+            }
+
+        }
+        function remove(x) {
+            // alert(x.parentElement.parentElement.children[0].innerText);
+            x.parentElement.parentElement.remove();
+        }
+        function addToList(x) {
+            var parent = document.getElementById("list_benh");
+            let tr = document.createElement("tr");
+            //create td
+            let td_id = document.createElement("td");
+            let td1 = document.createElement("td");
+            let td2 = document.createElement("td");
+            let td3 = document.createElement("td");
+            let td4 = document.createElement("td");
+
+            //find id
+            td_id.innerText = x.parentElement.children[0].innerText;
+            td_id.className = "d-none";
+
+
+            //find stt
+            let Stt = 1;
+            if (parent.lastElementChild !== null) {
+                Stt = parseInt(parent.lastElementChild.firstElementChild.innerText) + 1;
+            }
+            td1.innerText = Stt;
+            // add img
+            let td_img = document.createElement("img");
+            var img = x.parentElement.parentElement.children[0].src;
+            td_img.src = "../../" + img.substring(img.lastIndexOf("Uploads"));
+            td_img.style.maxHeight = "70px";
+            td2.appendChild(td_img);
+            //add text
+            td3.innerText = x.parentElement.children[1].innerText;
+            //create btn
+            let btn_delete = document.createElement("button");
+            btn_delete.className = "btn btn-danger";
+            btn_delete.innerText = "Xóa";
+            btn_delete.onclick = function () {
+                remove(this);
+            };
+            td4.append(btn_delete);
+            // add to tr
+            tr.appendChild(td_id);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+            parent.appendChild(tr);
+        }
+
+        resetAllItems();
+
+        $(document).ready(function () {
+            $("#search").keyup(function (event) {
+
+                if ($("#search").val() == "") {
+                    resetAllItems();
+                }
+                else {
+                    $.ajax({
+                        url: "../ManageTree/find_some_tree.php",
+                        type: "POST",
+                        data: { search: $("#search").val() },
+                        success: function (listCard) {
+                            while (document.getElementById("list").children.length > 0) {
+                                document.getElementById("list").removeChild(document.getElementById("list").lastElementChild);
+                            }
+                            load_items(listCard);
+                        }
+                    });
+                }
+
+                if (event.key == "Enter" || event.keyCode == 13) {
+                    if ($("#search").val() == "") {
+                        alert("Please Enter Medician Tree to Find!");
+                    } else {
+                        $.ajax({
+                            url: "../ManageTree/find_some_tree.php",
+                            type: "POST",
+                            data: { search: $("#search").val() },
+                            success: function (listCard) {
+                                if (listCard != "Medician Tree not found!") {
+                                    while (document.getElementById("list").children.length > 0) {
+                                        document.getElementById("list").removeChild(document.getElementById("list").lastElementChild);
+                                    }
+                                    load_items(listCard);
+                                    document.getElementById("list").scrollIntoView();
+                                }else{
+                                    alert("Sorry! Items doesn't exists");
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+
+        });
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magane_Diease</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: 'Times New Roman';
+
+        }
+
+        .details {
+            margin: auto;
+            color: black;
+            background-color: rgb(255, 255, 255);
+            border-radius: 20px;
+            box-shadow: 2px 2px #1d612979;
+            text-align: center;
+            margin-top: 5%;
+        }
+
+        body {
+            background-color: rgb(64, 138, 87);
+        }
+
+        .card-text::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            background-color: #F5F5F5;
+        }
+
+        .card-text::-webkit-scrollbar {
+            width: 5px;
+            background-color: #F5F5F5;
+        }
+
+        .card-text::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #555;
+        }
+
+        img {
+            width: 100%;
+            height: 50%;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .image_icon {
+            height: 30%;
+            width: 60%;
+
+        }
+
+        .row-col-3 {
+            height: 100vh;
+            width: 90%;
+        }
+
+        .card {
+            height: 47%;
+            margin-top: 4%;
+            background-color: rgb(64, 138, 87);
+        }
+
+        .card-body {
+            height: 50%;
+        }
+
+        .card-title {
+            line-height: 1rem;
+        }
+
+        .card-text {
+            height: 60%;
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+
+        .card-body a {
+            line-height: 1rem;
+            margin-right: 3%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row g-0" id="list">
+            <div class="col-3" style="height: 100vh;" id="col-3-icon">
+                <!-- h-70, w-65 -->
+                <a href="Index.html" class="btn btn-warning mt-3"><i class="bi bi-skip-backward-fill"></i> Back to
+                    Home </a> <br>
+                <h3 style="margin-top: 5%;"><b><i>Manage Disease</i></b></h3>
+                <img src="https://cdn-icons-png.flaticon.com/512/2973/2973419.png" alt="Manage" class="image_icon"
+                    style="margin-top: 5%;">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="php/ManageDisease/add_sick.html" class="details nav-link active btn bg-light"
+                            style="width: 40%;margin-bottom: 5%;">Add</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="form-group position-relative mt-4">
+                            <i class="bi bi-search icon position-absolute top-50 start-100 translate-middle"
+                                style="right: -15%;"></i>
+                            <input type="text" name="search" id="search" class="form-control text-center"
+                                placeholder="Find items to see and delete" style="border-radius: 20px;">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Delete -->
+    <div id="modal-delete" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered text-center">
+            <div class="modal-content">
+                <div class="modal-header flex-column">
+                    <button type="button" class="close float-end btn-close" data-bs-dismiss="modal">&times;</button>
+                    <i class="bi bi-x-circle" style="color: red;font-size: 100px;"></i>
+                    <h4 class="modal-title w-100">Are you sure?</h4>
+
+                </div>
+                <div class="modal-body">
+                    <p>Do you really want to delete this Disease?</p>
+                    <h3 class="ten_cay_delete"></h3>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-danger btn_delete">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function load_items(listCard) {
+            const ls = JSON.parse(listCard);
+            let num_card = ls.length;
+            let index_each_card = 0;
+            col = (num_card / 2) % 2 == 0 ? num_card / 2 : parseInt(num_card / 2) + 1; // 3 card -> col = 2
+            col = (num_card == 2) ? 1 : col;
+            var parent = document.getElementById("list");
+            for (let i = 0; i < col; i++) {
+                let col3 = document.createElement("div");
+                col3.className = "col-3";
+                parent.appendChild(col3);
+                let row = document.createElement("div");
+                row.className = "row ms-auto me-0 row-col-3";
+                col3.appendChild(row);
+                for (let j = 1; j <= 2; j++) {
+                    if (index_each_card < num_card) {
+                        let card = document.createElement("div");
+                        card.className = "card col-12 border-0";
+                        row.appendChild(card);
+                        let img = document.createElement("img");
+                        img.src = ls[index_each_card][4];
+                        card.appendChild(img);
+                        let card_body = document.createElement("div");
+                        card_body.className = "card-body text-start border bg-light rounded-bottom";
+                        card.appendChild(card_body);
+                        let id_hidden = document.createElement("div");
+                        id_hidden.className = "id d-none";
+                        id_hidden.innerText = ls[index_each_card][0];
+                        card_body.append(id_hidden);
+                        let card_title = document.createElement("h5");
+                        card_title.className = "card-title";
+                        card_title.innerHTML = "<b>" + ls[index_each_card][1] + "</b>";
+                        card_body.appendChild(card_title);
+                        let ten_kh = document.createElement("div");
+
+                        let card_text = document.createElement("p");
+                        card_text.className = "card-text";
+                        card_text.innerText = ls[index_each_card][2].substring(0, 200) + "...";
+                        card_body.appendChild(card_text);
+
+                        let btn_go = document.createElement("a");
+                        btn_go.className = "btn btn-primary item-go";
+                        btn_go.innerText = "View";
+                        btn_go.href = "php/ManageDisease/one_sick_details.php?id=" + ls[index_each_card][0];
+                        card_body.appendChild(btn_go);
+
+                        let btn_delete = document.createElement("a");
+                        btn_delete.className = "btn btn-danger item-delete";
+                        btn_delete.innerText = "Delete";
+                        btn_delete.onclick = function () {
+                            deleteSick(this);
+                        }
+                        card_body.appendChild(btn_delete);
+                        index_each_card++;
+                    }
+                }
+            }
+        }
+        $.ajax({
+            url: "php/ManageDisease/get_disease.php",
+            type: "GET",
+            success: function (listCard) {
+                load_items(listCard);
+            }
+        });
+        function getDetails(x) {
+            x.href = "php/ManageDisease/one_sick_details.php?id=" + x.parentElement.children[0].innerText;
+        }
+        function deleteSick(x) {
+            $("#modal-delete").modal('show');
+            // alert(x.parentElement.children[1].innerText);
+            $(".ten_cay_delete").text(x.parentElement.children[1].innerText);
+            var element = x.parentElement;
+            $(".btn_delete").off("click");
+            $(".btn_delete").click(function (event) {
+                $.ajax({
+                    url: "php/ManageDisease/delete_diease.php",
+                    type: "POST",
+                    data: { id: element.children[0].innerText, name: element.children[1].innerText },
+                    success: function (data) {
+                        location.reload();
+                        alert(data);
+                    }
+                });
+            });
+        }
+        function resetAllItems() {
+            $.ajax({
+                url: "php/ManageDisease/get_disease.php",
+                type: "GET",
+                success: function (listCard) {
+                    while (document.getElementById("list").children.length > 1) {
+                        document.getElementById("list").removeChild(document.getElementById("list").lastElementChild);
+                    }
+                    load_items(listCard);
+                }
+            });
+        }
+        $(document).ready(function () {
+            $("#search").keyup(function (event) {
+                if ($("#search").val() == "") {
+                    resetAllItems();
+                } else {
+                    $.ajax({
+                        url: "php/ManageDisease/find_some_disease.php",
+                        type: "POST",
+                        data: { search: $("#search").val() },
+                        success: function (listCard) {
+                            while (document.getElementById("list").children.length > 1) {
+                                document.getElementById("list").removeChild(document.getElementById("list").lastElementChild);
+                            }
+                            load_items(listCard);
+                        }
+                    });
+                }
+                if (event.key == "Enter" || event.keyCode == 13) {
+                    $.ajax({
+                        url: "php/ManageDisease/find_Disease.php",
+                        type: "POST",
+                        data: { search: $("#search").val() },
+                        success: function (listCard) {
+                            while (document.getElementById("list").children.length > 1) {
+                                document.getElementById("list").removeChild(document.getElementById("list").lastElementChild);
+                            }
+                            load_items(listCard);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/37953f48ea.js" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <style>
+        .interface_Screen {
+            background-color: rgb(64, 138, 87);
+            min-height: 100vh;
+        }
+
+        .content {
+            color: white;
+            position: absolute;
+            top: 30%;
+            left: calc((100% - 50%)/2);
+            width: 50%;
+            margin: auto;
+            text-align: center;
+            font-family: 'Times New Roman';
+        }
+
+        .temp {
+            height: 100vh;
+        }
+
+        .form-control:focus {
+            border-color: #03e9f4;
+            box-shadow: inset 0 1px 1px #03e9f4, 0 0 8px #03e9f4;
+        }
+
+        #information_user,
+        #information_admin {
+            position: absolute;
+            top: 0;
+            right: 50px;
+        }
+
+        #animation {
+            animation: fadeAndScale 5s cubic-bezier(.39, -1.05, .58, 1.95);
+        }
+
+        @keyframes fadeAndScale {
+            0% {
+                opacity: 0;
+                transform: scale3d(.75, .75, 1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale3d(.75, .75, 1);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale3d(1, 1, 1);
+            }
+        }
+
+        .card {
+            height: 100%;
+            width: 93%;
+            border-radius: 15px;
+            border: #555 solid 1px;
+            box-shadow: 5px 10px 8px #888888;
+        }
+
+        .card>img {
+            height: 50%;
+            width: 100%;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .card-body {
+            height: 50%;
+            background-color: rgb(64, 138, 87);
+            border-radius: 0px 0px 15px 15px;
+            color: white;
+        }
+
+        .card-body>a {
+            line-height: 1rem;
+        }
+
+        .card-title {
+            line-height: 1rem;
+        }
+
+        .card-text {
+            height: 60%;
+            overflow: scroll;
+            overflow-x: hidden;
+            text-align: justify;
+        }
+
+        .card-text::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            background-color: rgb(64, 138, 87);
+        }
+
+        .card-text::-webkit-scrollbar {
+            width: 5px;
+            background-color: rgb(64, 138, 87);
+        }
+
+        .card-text::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: white;
+
+        }
+
+        .list_row,
+        .list_row>.col-4 {
+            height: 50vh;
+        }
+
+        .icon_bs {
+            height: 70vh;
+            width: 22vw;
+            top: calc(100vh - 70vh);
+            right: 0;
+        }
+
+        .search {
+            background: url('Uploads/background_part2.gif') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+        }
+
+        .result_search {
+            height: 5vh;
+            font-size: larger;
+            font-style: italic;
+        }
+
+        .mt-5 {
+            animation: img 2s cubic-bezier(.39, -1.05, .58, 1.95);
+        }
+
+        @keyframes img {
+            0% {
+                transform: translateX(-20vw);
+            }
+
+            50% {
+                transform: translateX(-20px);
+            }
+
+            100% {
+                transform: translateX(0px);
+            }
+        }
+
+        #part_2 {
+            position: relative;
+        }
+
+        #part_2>.active {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid rgb(64, 138, 87);
+            width: 10px;
+            height: 10px;
+            background-color: aqua;
+        }
+
+        #part_2>.active:hover {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: rgb(64, 138, 87);
+            color: #fff;
+            box-shadow: 0 0 5px rgb(64, 138, 87),
+                0 0 25px rgb(64, 138, 87),
+                0 0 50px rgb(64, 138, 87),
+                0 0 100px rgb(64, 138, 87)
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <a href="#" class="btn btn-lg active" role="button"><i class="bi bi-house-up-fill"></i>
+    </a> -->
+    <img class="position-absolute icon_bs" src="Uploads/Nam.png" alt="ảnh">
+    <div class="interface_Screen">
+        <nav class="navbar navbar-expand-lg navbar-dark p-3 " id="headerNav">
+            <div class="container-fluid">
+                <div class=" collapse navbar-collapse position-relative" id="navbarNavDropdown">
+                    <ul class="navbar-nav mx-auto ">
+                        <li class="nav-item">
+                            <a class="nav-link mx-3 active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-3" href="Product.html">Products</a>
+                        </li>
+                        <li class="nav-item d-none d-lg-block">
+                            <a class="nav-link mx-3" href="#">
+                                <i class="fa-solid fa-hand-holding-heart py-2"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-3 navbar-brand" href="#">Pricing</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link mx-3 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Company
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Blog</a></li>
+                                <li><a class="dropdown-item" href="#">About Us</a></li>
+                                <li><a class="dropdown-item" href="#">Contact us</a></li>
+                            </ul>
+                        </li>
+                        <!-- absolute -->
+                        <li class="nav-item  position-absolute top-0 end-0" id="login">
+                            <a class="nav-link" data-bs-toggle="modal" href="#modal-login"><i
+                                    class="bi bi-person-circle"></i> Login</a>
+                        </li>
+                        <li class="nav-item dropdown" id="information_user">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown">
+                                <i class="bi bi-journal-medical"></i> Details
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="Cart.html"><i class="bi bi-bag-check-fill"></i>
+                                        Basket</a></li>
+                                <li><a class="dropdown-item" href="#" data-bs-dismiss="modal" data-bs-toggle="modal"
+                                        data-bs-target="#modal-changePass"><i class="bi bi-person-lines-fill "></i>
+                                        Change Password</a></li>
+                                <li><a class="dropdown-item" href="php/logout.php"><i class="bi bi-box-arrow-left"></i>
+                                        Logout</a></li>
+                            </ul>
+
+                        </li>
+                        <li class="nav-item dropdown" id="information_admin">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown">
+                                <i class="bi bi-journal-medical"></i> Details
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                                <li><a class="dropdown-item" href="Manage_Plant.html"><i
+                                            class="bi bi-person-lines-fill"></i> Manage
+                                        plant</a></li>
+                                <li><a class="dropdown-item" href="Manage_Disease.html"><i
+                                            class="bi bi-person-lines-fill"></i> Manage
+                                        Disease</a></li>
+                                <li><a class="dropdown-item" href="php/logout.php"><i class="bi bi-box-arrow-left"></i>
+                                        Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content">
+            <H2 id="animation">Welcome To Our Website! <br> We can help you to find something about healthcare quickly
+                <br>Now, Let's
+                take
+                the first step ...
+            </H2>
+            <div class="row g-0">
+                <div class="col-2">
+                    <div class="input-group">
+                        <select class="form-control form-select" style="width: 100%;" id="Category_search">
+                            <option value="Category" selected>Category</option>
+                            <option value="Bệnh">Bệnh</option>
+                            <option value="Cây thuốc">Cây thuốc</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="form-outline">
+                        <input type="text" style="width: 100%;" class="form-control"
+                            placeholder="Please choose one Category to Search" id="search" disabled>
+                    </div>
+
+                </div>
+                <div class="col-1">
+                    <button class="form-control" onclick="get(this)"> <i class="bi bi-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid d-none search" id="part_2">
+        <div class="row">
+            <div class="col-3" style="height: 100vh;">
+                <img src="Uploads/Nu.png" class="mt-5" style="width: 100%;height:70vh;">
+            </div>
+            <div class="col-9" id="list_items">
+                <div class="row result_search">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        function load_items(list_card, type) {
+            const ls = JSON.parse(list_card);
+            let num_card = ls.length;
+            let index_each_card = 0;
+            row = (num_card) % 3 == 0 ? num_card / 3 : parseInt(num_card / 3) + 1; // 3 card -> col = 2
+            var parent = document.getElementById("list_items");
+            for (let i = 0; i < row; i++) {
+                let row = document.createElement("div");
+                row.className = "row mt-3 list_row";
+                parent.appendChild(row);
+                for (let j = 1; j <= 3; j++) {
+                    if (index_each_card < num_card) {
+                        let col_4 = document.createElement("div");
+                        col_4.className = "col-4";
+                        row.appendChild(col_4);
+                        let card = document.createElement("div");
+                        card.className = "card ms-auto me-0 border-0";
+                        col_4.appendChild(card);
+                        let img = document.createElement("img");
+                        if (type == "Cây thuốc") {
+                            img.src = ls[index_each_card][6];
+                        } else {
+                            img.src = ls[index_each_card][4];
+                        }
+                        card.appendChild(img);
+                        let card_body = document.createElement("div");
+                        card_body.className = "card-body text-start ";
+                        card.appendChild(card_body);
+                        let id_hidden = document.createElement("div");
+                        id_hidden.className = "d-none";
+                        id_hidden.innerText = ls[index_each_card][0];
+
+                        card_body.appendChild(id_hidden);
+
+                        let card_title = document.createElement("h5");
+                        card_title.className = "card-title";
+                        card_title.innerText = ls[index_each_card][1];
+                        card_body.appendChild(card_title);
+
+                        let card_text = document.createElement("p");
+                        card_text.className = "card-text";
+                        if (type == "Cây thuốc") {
+                            card_text.innerText = ls[index_each_card][3].substring(0, 200) + "...";
+                        } else {
+                            card_text.innerText = ls[index_each_card][2].substring(0, 200) + "...";
+                        }
+                        card_body.appendChild(card_text);
+
+                        let btn_go = document.createElement("a");
+                        btn_go.className = "btn btn-primary";
+                        // onclick
+                        btn_go.innerText = "View Details";
+                        if (type == "Bệnh") {
+                            btn_go.onclick = function () {
+                                go(this, "Bệnh");
+                            }
+                        } else {
+                            btn_go.onclick = function () {
+                                go(this, "Cây thuốc");
+                            }
+                        }
+                        card_body.appendChild(btn_go);
+
+                        if (type == "Cây thuốc") {
+                            let btn_addToCart = document.createElement("a");
+                            btn_addToCart.className = "btn btn-warning ms-2";
+                            btn_addToCart.innerText = "Add to Basket";
+                            btn_addToCart.onclick = function () {
+                                addToBasket(this);
+                            }
+                            card_body.appendChild(btn_addToCart);
+                        }
+
+                        index_each_card++;
+                    }
+                }
+            }
+        }
+        function addToBasket(x) {
+            $.ajax({
+                url: "php/Basket/addTreeToBasket.php",
+                type: "post",
+                data: { id_tree: x.parentElement.children[0].innerText },
+                success: function (data) {
+                    alert(data);
+                }
+            });
+        }
+        function go(x, type) {
+            if (type == "Bệnh") {
+                x.href = "php/ManageDisease/one_sick_details.php?id=" + x.parentElement.children[0].innerText;
+            } else {
+                x.href = "php/ManageTree/one_tree_details.php?id=" + x.parentElement.children[0].innerText;
+            }
+        }
+        function get(x) {
+            if ($("#search").val() == "") {
+                alert("Please Enter information to Search");
+                x.preventDefault();
+            }
+            document.getElementById("part_2").classList.remove("d-none");
+            if ($("#Category_search").val() == "Bệnh") {
+                $.ajax({
+                    url: "php/ManageDisease/find_some_disease.php",
+                    method: "POST",
+                    data: { search: $("#search").val() },
+                    success: function (data) {
+                        while (document.getElementById("list_items").children.length > 1) {
+                            document.getElementById("list_items").removeChild(document.getElementById("list_items").lastElementChild);
+                        }
+                        load_items(data, "Bệnh");
+                        document.getElementById("list_items").scrollIntoView();
+                        $(".result_search").html("<b>Từ khóa cho bệnh: " + $("#search").val() + "</b>");
+                    }
+                });
+            } else if ($("#Category_search").val() == "Cây thuốc") {
+                $.ajax({
+                    url: "php/ManageTree/find_some_tree.php",
+                    method: "POST",
+                    data: { search: $("#search").val() },
+                    success: function (data) {
+                        while (document.getElementById("list_items").children.length > 1) {
+                            document.getElementById("list_items").removeChild(document.getElementById("list_items").lastElementChild);
+                        }
+                        load_items(data, "Cây thuốc");
+                        document.getElementById("list_items").scrollIntoView();
+                        $(".result_search").html("<b>Từ khóa cho cây: " + $("#search").val() + "</b>");
+                    }
+                });
+            }
+        }
+
+        $.ajax({
+            url: "php/status_Login.php",
+            method: "get",
+            success: function (data) {
+                if (data == "admin") {
+                    $("#information_user").css("display", "none");
+                    $("#information_admin").css("display", "block");
+                    $("#login").css("display", "none");
+                } else if (data == "Not Login") {
+                    $("#information_user").css("display", "none");
+                    $("#information_admin").css("display", "none");
+                    $("#login").css("display", "block");
+
+                } else {
+                    $("#information_user").css("display", "block");
+                    $("#information_admin").css("display", "none");
+                    $("#login").css("display", "none");
+                }
+            }
+        });
+
+        // xu ly login
+        $(document).ready(function () {
+            $("#Category_search").change(function () {
+                if ($("#Category_search").val() == "Category") {
+                    $("#search").attr("placeholder", "Please choose one Category to Search");
+                    $("#search").attr("disabled", true);
+                } else {
+                    $("#search").attr("disabled", false);
+                    $("#search").attr("placeholder", "Nhập " + $("#Category_search").val());
+                }
+            });
+            $("#search").keyup(function (event) {
+                if (event.key == "Enter" || event.keyCode == 13) {
+                    get(this);
+                }
+            });
+            $(".btn_login").click(function (event) {
+                if ($("#userName").val() == "") {
+                    alert("Vui long nhap username");
+                    event.preventDefault();
+                } else if ($("#PassWord").val() == "") {
+                    alert("Vui long nhap Password");
+                    event.preventDefault();
+                } else {
+                    $.ajax({
+                        url: "php/checkLogin.php",
+                        method: "post",
+                        data: {
+                            userName: $("#userName").val(),
+                            PassWord: $("#PassWord").val()
+                        },
+                        success: function (data) {
+                            alert(data);
+                            if (data == "Login Success") {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+            $(".btn_register").click(function () {
+                $.ajax({
+                    url: "php/Register.php",
+                    method: "post",
+                    data: {
+                        userName: $("#userName_register").val(),
+                        Password: $("#PassWord_register").val(),
+                        Email: $("#Email_register").val(),
+                    },
+                    success: function (data) {
+                        alert(data);
+                    }
+
+                });
+            });
+            document.getElementById("PassWord").addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    document.getElementById("btn_login").click();
+                }
+            });
+            function changePassword() {
+                if ($("#pWord").val() == "") {
+                    alert("Please Enter password to change");
+                } else if ($("#Confirm_pW").val() == "") {
+                    alert("Please confirm password to change");
+                } else if ($("#pWord").val() !== $("#Confirm_pW").val()) {
+                    alert("Two Password must be equal!");
+                } else {
+                    $.ajax({
+                        url: "php/Change_Password.php",
+                        type: "POST",
+                        data: { pass: $("#pWord").val() },
+                        success: function (data) {
+                            if (data === "Change Password success!") {
+                                alert(data);
+                            }
+                        }
+                    });
+                }
+            }
+            $("#btn_change_pw").click(function (event) {
+                changePassword();
+            });
+            $("#Confirm_pW").keyup(function (event) {
+                if (event.key == "Enter" || event.keyCode == 13) {
+                    changePassword();
+                }
+            });
+
+
+
+            $("#btn_send_new_pass").click(function (event) {
+                var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                if (document.getElementById("forgot_email").value.match(mailformat)) {
+                    $.ajax({
+                        url: "php/forgotPass.php",
+                        type: "POST",
+                        data: { email: $("#forgot_email").val() },
+                        success: function (data) {
+                            alert(data);
+                        }
+                    });
+                } else {
+                    alert("Email invalid Form");
+                }
+            });
+        });
+
+    </script>
+
+
+    <div class="modal fade" id="modal-login" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="row g-0">
+                    <div class="col-6 border-end">
+                        <img src="https://asitive.com/wp-content/uploads/2022/06/istockphoto-1281150061-612x612-1.jpg"
+                            alt="login form" class="img-fluid" style="border-top-left-radius: 8px ;height: 100%;">
+                    </div>
+                    <div class="col-6">
+                        <div class="modal-header border-0">
+                            <h5 class="modal-title me-0 ms-auto">Sign in</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></i></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="userName">Username</label>
+                                <input type="text" name="userName" id="userName" class="form-control">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="PassWord">Password</label>
+                                <input type="password" name="PassWord" id="PassWord" class="form-control">
+                                <a style="font-style: italic; text-decoration: none;" data-bs-dismiss="modal"
+                                    data-bs-toggle="modal" href="#modal_forgot_pass_enter_user">Forgot
+                                    password?</a>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn_login" id="btn_login">Sign in</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <p style="margin: auto;">Don't have account? <a style="text-decoration: none;" href="#"
+                                    data-bs-dismiss="modal" data-bs-toggle="modal"
+                                    data-bs-target="#modal-Register">Create one</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-Register" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="row g-0">
+                    <div class="col-6 border-end">
+                        <img src="https://acad.xlri.ac.in/results/preupld/images/login.svg" alt="login form"
+                            class="img-fluid" style="border-top-left-radius: 8px ;height: 100%;">
+                    </div>
+                    <div class="col-6">
+                        <div class="modal-header border-0">
+                            <h5 class="modal-title me-0 ms-auto">Register Form</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group mb-2">
+                                <label for="userName_register">Username</label>
+                                <input type="text" name="userName" id="userName_register" class="form-control">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="PassWord_register">Password</label>
+                                <input type="password" name="PassWord" id="PassWord_register" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="Email_register">Email</label>
+                                <input type="email" name="Email" id="Email_register" class="form-control">
+                            </div>
+                            <div class="d-grid gap-2 mt-3 d-md-flex">
+                                <button type="button" class="btn btn-primary col-6" data-dismiss="modal"
+                                    data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modal-login">Sign
+                                    in</button>
+                                <button type="button" class="btn btn-danger col-6 btn_register"
+                                    data-dismiss="modal">Register</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal change PASS -->
+    <div class="modal fade" id="modal-changePass" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="row g-0">
+                    <div class="col-6 border-end">
+                        <img src="https://i0.wp.com/backendnews.net/wp-content/uploads/2022/05/World-Password-Day-2022-Google-Password-Manager.png?fit=640%2C360&ssl=1"
+                            alt="login form" class="img-fluid" style="border-top-left-radius: 8px ;height: 100%;">
+                    </div>
+                    <div class="col-6">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="margin: auto;">Change Password</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group mb-2">
+                                <label for="pWord">Password</label>
+                                <input type="password" name="pWord" id="pWord" class="form-control">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="Confirm_pW">Confirm password</label>
+                                <input type="password" name="Confirm_pW" id="Confirm_pW" class="form-control">
+                            </div>
+                            <div class="d-grid gap-2 mt-3 d-md-flex">
+                                <button type="reset" class="btn btn-primary col-6"
+                                    data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-danger col-6" id="btn_change_pw">Change</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal_forgot_pass_enter_user" role="dialog">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="row g-0">
+
+                    <div class="col-12">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="margin: auto;">Forgot Password</h5>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group mb-2">
+                                <label>Email Register</label>
+                                <input type="email" class="form-control" id="forgot_email">
+                            </div>
+                            <div class="d-grid gap-2 mt-3 d-md-flex justify-content-end">
+                                <button type="reset" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                    id="btn_send_new_pass">Send me new
+                                    password</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
